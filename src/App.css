@@ -4,13 +4,13 @@
 	display: inline-block;
 	max-width: 550px;
 	width: 100%;
-	margin: 0 auto;
+	margin: 10px;
 	box-shadow: 2px 2px 5px #ccc;
 	background-color: #eee;
 }
 
 .main-entry, .task-array {
-	padding: 5px;
+	padding: 10px;
 	border: 1px solid #ccc;
 	box-shadow: 2px 2px 5px #ccc;
 	margin: 10px;
@@ -22,7 +22,7 @@
 }
 
 .main-entry {
-	margin-right: 0px;
+	/* margin-right: 0px; */
 }
 
 .main-input {

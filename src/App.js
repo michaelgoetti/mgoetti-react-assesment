@@ -8,8 +8,8 @@ class App extends Component {
 
 		this.state = {
 			myList: [],
-			tempTitle: '',
-			maxId: 0,
+			tempItemTitle: '',
+			maxItemId: 0,
 		}
 
 		this.addToList = this.addToList.bind(this);
@@ -21,46 +21,25 @@ class App extends Component {
 
 	addToList() {
 		let currItem = {
-			id: this.state.maxId + 1,
-			title: this.state.tempTitle,
+			id: this.state.maxItemId + 1,
+			title: this.state.tempItemTitle,
 			cplt: false,
 		};
 		this.setState({
-			myList: [...this.state.myList, currItem ]
-		},
-			() => {
-				this.setState({ 
-					maxId: this.state.maxId + 1,
-					tempTitle: '',
-				})
-			}
-		);
-		document.querySelector(".main-input").value = '';
+			myList: [...this.state.myList, currItem ],
+			maxItemId: this.state.maxItemId + 1,
+			tempItemTitle: '',
+		});
 	}
 
 	handleTitleChange(event) {
-    this.setState({tempTitle: event.target.value});
+    this.setState({tempItemTitle: event.target.value});
 	}
-	
 
-	completeTask(id, index) {
-		this.setState({myList: [
-			...this.state.myList.filter(x => id !== x.id),
-			{ 
-				id: this.state.myList[index].id,
-				title: this.state.myList[index].title,
-				cplt: true, 
-			}
-		]},
-			() => {
-				let tempList = this.state.myList;
-				tempList.sort(function(a,b) {
-					return (a.id > b.id) 
-						? 1 
-						: ((b.id > a.id) ? -1 : 0);}
-					);
-				this.setState({ myList: tempList })		
-				});
+	completeTask(index) {
+		let tempListArray = this.state.myList;
+		tempListArray[index].cplt = true;
+		this.setState({ myList: tempListArray });
 	}
 
 	deleteTask(id) {
@@ -70,12 +49,28 @@ class App extends Component {
 	}
 
   render() {
+		let mainStyle = {
+			width: '95%', 
+			display: 'inline-block',
+		};
     return (
       <div className="global-wrap">
-				<div className="main-entry" style={{width: '96.5%', display: 'inline-block'}}>
+				<div 
+					className="main-entry" 
+					style={{mainStyle}}
+				>
 					<h2>TO-DO:</h2>
-					<input type="text" className="form-control main-input" onChange={ this.handleTitleChange } />
-					<button className="btn btn-info add-btn" disabled={ this.state.tempTitle.length === 0 } onClick={ this.addToList } >
+					<input 
+						type="text" 
+						className="form-control main-input" 
+						value={ this.state.tempItemTitle } 
+						onChange={ this.handleTitleChange } 
+					/>
+					<button 
+						className="btn btn-info add-btn" 
+						disabled={ this.state.tempItemTitle.length === 0 } 
+						onClick={ this.addToList } 
+					>
 						Add to List
 					</button>
 				</div>
@@ -91,7 +86,7 @@ class App extends Component {
 										id={ item.id } 
 										key={ index }
 										title={ item.title } 
-										cplt={ item.cplt }
+										boolCplt={ item.cplt }
 										index={ index } 
 										funcCplt={this.completeTask}
 										funcDel={ this.deleteTask }

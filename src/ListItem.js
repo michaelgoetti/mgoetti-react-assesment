@@ -9,7 +9,7 @@ class ListItem extends Component {
 				className="list-item" 
 				style={{ margin: '5px' }}
 			>
-				<div className={`item-title ${ this.props.cplt ? 'item-cplt' : '' }`}>
+				<div className={`item-title ${ this.props.boolCplt ? 'item-cplt' : '' }`}>
 					{ this.props.title } 
 				</div> 
 				<button 
@@ -20,16 +20,14 @@ class ListItem extends Component {
 				</button>
 				<button 
 					className="btn btn-warning cplt-btn" 
-					onClick={ () => this.props.funcCplt(this.props.id, this.props.index) }
-					disabled={ this.props.cplt }	
+					onClick={ () => this.props.funcCplt(this.props.index) }
+					disabled={ this.props.boolCplt }	
 				> 
 					Complete 
 				</button>
 			</div>
     );
 	}
-	
-
 }
 
 export default ListItem;
